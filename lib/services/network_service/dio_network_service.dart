@@ -10,7 +10,7 @@ import 'i_network_service.dart';
 class DioNetworkService extends INetworkService {
   /// Default constructor used for setting up dio init functions
   DioNetworkService() {
-    _dio.options.baseUrl = baseUri.toString();
+    _dio.options.baseUrl = ApiConstants.baseUri.toString();
     _log.i('Dio service constructed');
   }
 
