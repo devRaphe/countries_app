@@ -1,8 +1,8 @@
-import 'package:countries_app/core/utilities/api_handlers/failure.dart';
 import 'package:dio/dio.dart';
 
 import '../../app/app.logger.dart';
 import '../../core/constants/api_constants.dart';
+import '../../core/utilities/api_handlers/failure.dart';
 import '../../core/utilities/api_handlers/network_response.dart';
 import 'i_network_service.dart';
 
