@@ -10,9 +10,11 @@ import '../ui/countries_detail/countries_detail_view.dart';
     AdaptiveRoute(page: CountriesDetailView),
   ],
   dependencies: [
-    LazySingleton(classType: NavigationService),
-    LazySingleton(classType: BottomSheetService)
+    LazySingleton<NavigationService>(classType: NavigationService),
+    LazySingleton<BottomSheetService>(classType: BottomSheetService)
   ],
   logger: StackedLogger(),
 )
+
+/// This class only serves the purpose of using the [StackedApp] annotation
 class AppSetup {}
