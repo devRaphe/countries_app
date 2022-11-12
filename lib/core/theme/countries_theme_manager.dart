@@ -38,7 +38,7 @@ class CountriesThemeManager {
     secondaryContainer: const Color(0xff98a2b3),
     background: Colors.white,
     surfaceTint: const Color(0xFF001637),
-    surface: Colors.white,
+    surface: Colors.black,
   );
 
   static TextTheme _textTheme(ColorScheme colorScheme) => TextTheme(
