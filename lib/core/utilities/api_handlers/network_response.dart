@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 /// This class acts as a value object for the http network response
-class NetworkResponse extends Equatable {
+class NetworkResponse<T> extends Equatable {
   /// Default constructor
   const NetworkResponse({
     required this.data,
@@ -9,7 +9,7 @@ class NetworkResponse extends Equatable {
   });
 
   /// Contains the data response from the network or API.
-  final dynamic data;
+  final T data;
 
   /// Contains the status code of the network response.
   final int? statusCode;

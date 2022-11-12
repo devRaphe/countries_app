@@ -18,15 +18,12 @@ class DioNetworkService extends INetworkService {
   final _log = getLogger('DioNetworkService');
 
   @override
-  Future<NetworkResponse> get(Uri uri) async {
+  Future<NetworkResponse<T>> get<T>(Uri uri) async {
     try {
-      return await _dio.get<dynamic>(uri.toString()).then(
-        (response) {
-          return NetworkResponse(
-            data: response.data,
-            statusCode: response.statusCode,
-          );
-        },
+      final response = await _dio.getUri<T>(uri);
+      return NetworkResponse<T>(
+        data: response.data as T,
+        statusCode: response.statusCode,
       );
     } on DioError catch (error) {
       switch (error.type) {
@@ -85,7 +82,7 @@ class DioNetworkService extends INetworkService {
   }
 
   @override
-  Future<NetworkResponse> post(Uri uri) {
+  Future<NetworkResponse<T>> post<T>(Uri uri) {
     // TODO: implement post
     throw UnimplementedError();
   }
