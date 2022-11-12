@@ -20,7 +20,7 @@ class DioNetworkService extends INetworkService {
   @override
   Future<NetworkResponse> get(Uri uri) async {
     try {
-      return await _dio.get<Map<String, dynamic>>(uri.toString()).then(
+      return await _dio.get<dynamic>(uri.toString()).then(
         (response) {
           return NetworkResponse(
             data: response.data,
