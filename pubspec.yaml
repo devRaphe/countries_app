@@ -24,6 +24,8 @@ dependencies:
   equatable: ^2.0.5
 
 
+  flutter_hooks: ^0.18.5+1
+
   #Consistent and pixel perfect helper
   flutter_screenutil: ^5.6.0
 
