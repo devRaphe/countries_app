@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// This class services as a value object for the http network response
+/// This class acts as a value object for the http network response
 class NetworkResponse extends Equatable {
   /// Default constructor
   const NetworkResponse({
