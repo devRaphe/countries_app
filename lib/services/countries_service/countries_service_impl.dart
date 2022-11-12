@@ -16,15 +16,13 @@ class CountriesServiceImpl extends ICountriesService {
   Future<List<Country>> getCountries() async {
     _log.v('Fetching countries...');
     final response = await _networkService
-        .get<List<Map<String, dynamic>>>(ApiConstants.getAllCountriesEndpoint);
+        .get<List<dynamic>>(ApiConstants.getAllCountriesEndpoint);
     _log
       ..v('Countries fetched successfully.\n ${response.data}')
       ..v('Parsing countries...');
 
     final countries = List<Country>.from(
-      response.data.map(
-        Country.fromJson,
-      ),
+      response.data.map((e) => Country.fromJson(e as Map<String, dynamic>)),
     );
     _log.v('Countries parsed successfully.');
     return countries;
