@@ -42,7 +42,7 @@ class CountriesThemeManager {
   );
 
   static TextTheme _textTheme(ColorScheme colorScheme) => TextTheme(
-        headline1: GoogleFonts.elsieSwashCaps(
+        headline1: TextStyle(
           fontSize: 32.sp,
           fontWeight: FontWeight.bold,
           color: colorScheme.surface,
