@@ -17,6 +17,9 @@ dependencies:
   #Used to make network calls
   dio: ^4.0.6
 
+  # Implements google fonts api to provide custom fonts
+  google_fonts: ^3.0.1
+
   #An efficient way to for object equality
   equatable: ^2.0.5
 
