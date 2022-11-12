@@ -1,3 +1,5 @@
+import 'package:countries_app/services/countries_service/countries_service_impl.dart';
+import 'package:countries_app/services/countries_service/i_countries_service.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -17,6 +19,10 @@ import '../ui/countries_detail/countries_detail_view.dart';
     LazySingleton<INetworkService>(
       classType: DioNetworkService,
       asType: INetworkService,
+    ),
+    LazySingleton<ICountriesService>(
+      classType: CountriesServiceImpl,
+      asType: ICountriesService,
     ),
   ],
   logger: StackedLogger(),
