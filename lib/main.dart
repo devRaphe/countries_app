@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app/app.router.dart';
+
 void main() {
   runApp(const CountriesApp());
 }
@@ -17,7 +19,7 @@ class CountriesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
 }
