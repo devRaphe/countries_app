@@ -22,11 +22,12 @@ extension StatusbarTypeExtension on StatusbarType {
 /// This widget acts as a wrapper for system status bar.
 /// Wrap your top most widget with this widget to change the status bar theme.
 class Statusbar extends StatelessWidget {
-  /// This constructor sets the [Statusbar] theme mode to light..
+  /// This constructor sets the [Statusbar] theme mode to light by default.
   const Statusbar({
     super.key,
+    this.statusbarType = StatusbarType.light,
     required this.child,
-  }) : statusbarType = StatusbarType.light;
+  });
 
   /// This constructor sets the [Statusbar]  theme mode to dark.
   const Statusbar.dark({
