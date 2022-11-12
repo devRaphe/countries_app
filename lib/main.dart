@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'app/app.router.dart';
 
@@ -20,6 +21,7 @@ class CountriesApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: StackedRouter().onGenerateRoute,
+      navigatorKey: StackedService.navigatorKey,
     );
   }
 }
