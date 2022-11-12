@@ -32,12 +32,14 @@ class Country extends Equatable {
         officialName:
             (json['name'] as Map<String, dynamic>)['official'] as String? ??
                 'N/A',
-        capital: (json['capital'] as List<dynamic>).first as String? ?? 'N/A',
+        capital: json['capital'] != null
+            ? (json['capital'] as List<dynamic>).first as String
+            : 'N/A',
         isIndependent: json['Independent'] as bool?,
         area: json['area'] != null ? (json['area'] as num).toDouble() : 0.0,
-        timeZones: List<String>.from(
-          (json['timeZones'] as List<dynamic>).map((timezone) => timezone),
-        ),
+        timeZones: json['timezones'] != null
+            ? (json['timezones'] as List<dynamic>).cast<String>()
+            : [],
         flagImageUrl:
             (json['flags'] as Map<String, dynamic>)['png'] as String? ?? '',
         coatOfArmsImageUrl:
