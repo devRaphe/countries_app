@@ -32,6 +32,9 @@ dependencies:
   #Consistent and pixel perfect helper
   flutter_screenutil: ^5.6.0
 
+  #Provides fluent page view indicators
+  smooth_page_indicator: ^1.0.0+2
+
   #used to display a shimmer effect when UI loading
   shimmer: ^2.0.0
 
