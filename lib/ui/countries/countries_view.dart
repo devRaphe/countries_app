@@ -128,7 +128,9 @@ class _CountriesBuilder extends ViewModelWidget<CountriesViewModel> {
         return _CountryTile(
           key: UniqueKey(),
           country: country,
-        ).defaultBorderRadius.touchable(() {});
+        ).defaultBorderRadius.touchable(() {
+          model.navigateToCountryDetailsView(country);
+        });
       },
     );
   }

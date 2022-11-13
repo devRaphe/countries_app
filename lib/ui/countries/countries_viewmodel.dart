@@ -54,8 +54,10 @@ class CountriesViewModel extends ReactiveViewModel {
   }
 
   /// Method to navigate to countries details screen
-  void navigateToCountryDetailsView() {
-    unawaited(_navigationService.navigateToCountriesDetailView());
+  void navigateToCountryDetailsView(Country country) {
+    unawaited(
+      _navigationService.navigateToCountriesDetailView(countryToView: country),
+    );
   }
 
   @override
