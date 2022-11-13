@@ -28,7 +28,7 @@ extension WidgetExtension on Widget {
 
   ///This extension adds padding to the given widget.
   ///It has a default padding for [24.w] horizontally and [16.h] vertically.
-  Widget withPadding(EdgeInsetsGeometry? padding) => Padding(
+  Widget withPadding([EdgeInsetsGeometry? padding]) => Padding(
         padding: padding ??
             EdgeInsets.symmetric(
               horizontal: 24.w,
