@@ -150,7 +150,7 @@ class _CountryTile extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondary,
           child: CachedNetworkImage(
             imageUrl: country.flagImageUrl,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
         ),
       ).defaultBorderRadius,
