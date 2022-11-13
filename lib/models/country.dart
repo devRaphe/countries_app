@@ -17,6 +17,12 @@ class Country extends Equatable {
     required this.drivingSide,
     required this.region,
     required this.subRegion,
+    required this.altSpelling,
+    required this.continent,
+    required this.coordinates,
+    required this.startOfTheWeek,
+    required this.unitedNationsMember,
+    required this.googleMapUrl,
   });
 
   /// factory constructor that return [Country].
@@ -35,7 +41,7 @@ class Country extends Equatable {
         capital: json['capital'] != null
             ? (json['capital'] as List<dynamic>).first as String
             : 'N/A',
-        isIndependent: json['Independent'] as bool?,
+        isIndependent: json['independent'] as bool?,
         area: json['area'] != null ? (json['area'] as num).toDouble() : 0.0,
         timeZones: json['timezones'] != null
             ? (json['timezones'] as List<dynamic>).cast<String>()
@@ -49,6 +55,20 @@ class Country extends Equatable {
             (json['car'] as Map<String, dynamic>)['side'] as String? ?? '',
         region: json['region'] as String? ?? 'N/A',
         subRegion: json['subregion'] as String? ?? 'N/A',
+        altSpelling:
+            (json['altSpellings'] as List<dynamic>).first as String? ?? 'N/A',
+        continent:
+            (json['continents'] as List<dynamic>).first as String? ?? 'N/A',
+        coordinates: json['latlng'] != null
+            ? List<double>.from(
+                (json['latlng'] as List<dynamic>).map((x) => x),
+              )
+            : [],
+        startOfTheWeek: json['startOfWeek'] as String? ?? 'N/A',
+        unitedNationsMember: json['unMember'] as bool?,
+        googleMapUrl:
+            (json['maps'] as Map<String, dynamic>)['googleMaps'] as String? ??
+                '',
       );
 
   /// countryPopulation
@@ -87,6 +107,24 @@ class Country extends Equatable {
   /// country subregion
   final String subRegion;
 
+  /// country continent
+  final String continent;
+
+  /// country alternative spelling.
+  final String altSpelling;
+
+  /// boolean to know if country is a un member.
+  final bool? unitedNationsMember;
+
+  /// coordinates of the country.
+  final List<double> coordinates;
+
+  /// start day of the week.
+  final String startOfTheWeek;
+
+  /// google map location url.
+  final String googleMapUrl;
+
   @override
   List<Object?> get props => [
         population,
@@ -101,5 +139,11 @@ class Country extends Equatable {
         drivingSide,
         region,
         subRegion,
+        continent,
+        altSpelling,
+        unitedNationsMember,
+        coordinates,
+        startOfTheWeek,
+        googleMapUrl,
       ];
 }
