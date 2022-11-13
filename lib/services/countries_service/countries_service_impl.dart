@@ -18,13 +18,13 @@ class CountriesServiceImpl extends ICountriesService {
     final response = await _networkService
         .get<List<dynamic>>(ApiConstants.getAllCountriesEndpoint);
     _log
-      ..v('Countries fetched successfully.\n ${response.data}')
+      ..v('Countries fetched successfully.')
       ..v('Parsing countries...');
 
     final countries = List<Country>.from(
       response.data.map((e) => Country.fromJson(e as Map<String, dynamic>)),
     );
-    _log.v('Countries parsed successfully.');
+    _log.v('Countries parsed successfully.\n$countries');
     return countries;
   }
 
