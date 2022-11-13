@@ -1,16 +1,22 @@
+import 'dart:async';
+
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../app/app.locator.dart';
 import '../../app/app.logger.dart';
+import '../../app/app.router.dart';
 import '../../core/utilities/api_handlers/failure.dart';
 import '../../models/country.dart';
 import '../../services/countries_service/i_countries_service.dart';
+import '../../services/theme_service/theme_service.dart';
 
 /// Business logic layer for Country View.
-class CountriesViewModel extends BaseViewModel {
+class CountriesViewModel extends ReactiveViewModel {
   final _countriesService = locator<ICountriesService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final _themeService = locator<ThemeService>();
+  final _navigationService = locator<NavigationService>();
   final _log = getLogger('CountriesViewModel');
 
   List<Country> _countries = [];
@@ -46,4 +52,12 @@ class CountriesViewModel extends BaseViewModel {
       setBusy(false);
     }
   }
+
+  /// Method to navigate to countries details screen
+  void navigateToCountryDetailsView() {
+    unawaited(_navigationService.navigateToCountriesDetailView());
+  }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_themeService];
 }
