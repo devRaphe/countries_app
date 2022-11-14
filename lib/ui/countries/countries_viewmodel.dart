@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../app/app.bottomsheets.dart';
 import '../../app/app.locator.dart';
 import '../../app/app.logger.dart';
 import '../../app/app.router.dart';
@@ -29,6 +30,8 @@ class CountriesViewModel extends ReactiveViewModel {
     _themeService.setThemeMode(isDarkMode: false);
   }
 
+  List<Country> _initialCountriesList = [];
+
   List<Country> _countries = [];
 
   /// Getter of a list of [_countries].
@@ -45,6 +48,7 @@ class CountriesViewModel extends ReactiveViewModel {
     try {
       setBusy(true);
       final countries = await _countriesService.getCountries();
+      _initialCountriesList = countries;
       _setCountries(countries);
       notifyListeners();
       _log.i('List of countries recieved successfully.');
@@ -68,6 +72,47 @@ class CountriesViewModel extends ReactiveViewModel {
     unawaited(
       _navigationService.navigateToCountriesDetailView(countryToView: country),
     );
+  }
+
+  /// Method to filter countries by name, capital, region and subregion.
+  void searchCountries(String query) {
+    _log.v('Filtering through shop items');
+
+    if (query.isNotEmpty) {
+      final filteredCountries = _countries.where((country) {
+        final countryOfficialName = country.officialName.toLowerCase();
+        final countryCommonName = country.officialName.toLowerCase();
+        final countryCapital = country.capital.toLowerCase();
+        final countryRegion = country.region.toLowerCase();
+        final countrySubRegion = country.subRegion.toLowerCase();
+        final queryLowerCase = query.toLowerCase();
+        return countryOfficialName.contains(queryLowerCase) ||
+            countryCommonName.contains(queryLowerCase) ||
+            countryCapital.contains(queryLowerCase) ||
+            countryRegion.contains(queryLowerCase) ||
+            countrySubRegion.contains(queryLowerCase);
+      }).toList();
+      _countries = filteredCountries;
+    } else {
+      _countries = _initialCountriesList;
+    }
+    notifyListeners();
+  }
+
+  /// Method to filter countries by with certain parameters
+  /// like timezones and regions.
+  Future<void> filterCountries() async {
+    final List<String>? filterParameters = await _openFilterBottomSheet();
+    if (filterParameters != null) {}
+  }
+
+  Future<List<String>?> _openFilterBottomSheet() async {
+    final result =
+        await _bottomSheetService.showCustomSheet<List<String>, List<String>>(
+      variant: BottomsheetType.filterCountriesBottomSheetView,
+      isScrollControlled: true,
+    );
+    return result?.data;
   }
 
   @override
