@@ -41,28 +41,38 @@ class CountriesView extends HookWidget {
                   height: 1.5,
                 ),
               ),
+              titleSpacing: 0,
+              leading: SizedBox(
+                width: 24.w,
+              ),
+              leadingWidth: 24.w,
               centerTitle: false,
               actions: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: DecoratedBox(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Container(
+                    height: 40.h,
+                    width: 40.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Theme.of(context).colorScheme.secondaryContainer,
                     ),
                     child: Theme.of(context).brightness == Brightness.dark
-                        ? IconButton(
-                            onPressed: model.turnOnLightMode,
-                            icon: Icon(
-                              Icons.dark_mode_sharp,
-                              color: Theme.of(context).colorScheme.surface,
-                              size: 30.w,
-                            ),
-                          )
-                        : IconButton(
-                            onPressed: model.turnOnDarkMode,
+                        ? Icon(
+                            Icons.dark_mode_sharp,
                             color: Theme.of(context).colorScheme.surface,
-                            icon: Icon(Icons.light_mode, size: 30.w),
+                            size: 30,
+                          ).touchable(() {
+                            model.turnOnLightMode();
+                          })
+                        : Icon(
+                            Icons.light_mode,
+                            size: 30,
+                            color: Theme.of(context).colorScheme.surface,
+                          ).touchable(
+                            () {
+                              model.turnOnDarkMode();
+                            },
                           ),
                   ),
                 ),
@@ -100,9 +110,16 @@ class CountriesView extends HookWidget {
                     ],
                   ),
                   CountriesSpacing.mediumHeight(),
-                  Expanded(
-                    child: _CountriesBuilder(
-                      key: UniqueKey(),
+                  Flexible(
+                    child: OrientationBuilder(
+                      builder: (context, orientation) =>
+                          orientation == Orientation.portrait
+                              ? _CountriesBuilderPortrait(
+                                  key: UniqueKey(),
+                                )
+                              : _CountriesBuilderLandScape(
+                                  key: UniqueKey(),
+                                ),
                     ),
                   ),
                 ],
@@ -115,8 +132,37 @@ class CountriesView extends HookWidget {
   }
 }
 
-class _CountriesBuilder extends ViewModelWidget<CountriesViewModel> {
-  const _CountriesBuilder({super.key});
+class _CountriesBuilderLandScape extends ViewModelWidget<CountriesViewModel> {
+  const _CountriesBuilderLandScape({super.key});
+
+  @override
+  Widget build(BuildContext context, CountriesViewModel model) {
+    return GridView.builder(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const BouncingScrollPhysics(),
+      itemCount: model.countries.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 10,
+        mainAxisExtent: 50,
+      ),
+      itemBuilder: (context, index) {
+        final country = model.countries[index];
+        return _CountryTile(
+          key: UniqueKey(),
+          country: country,
+        ).defaultBorderRadius.touchable(() {
+          model.navigateToCountryDetailsView(country);
+        });
+      },
+    );
+  }
+}
+
+class _CountriesBuilderPortrait extends ViewModelWidget<CountriesViewModel> {
+  const _CountriesBuilderPortrait({super.key});
 
   @override
   Widget build(BuildContext context, CountriesViewModel model) {
@@ -144,6 +190,8 @@ class _CountryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      dense: true,
+      minVerticalPadding: 0,
       contentPadding: EdgeInsets.zero,
       leading: SizedBox(
         height: 40.w,
@@ -154,8 +202,8 @@ class _CountryTile extends StatelessWidget {
             imageUrl: country.flagImageUrl,
             fit: BoxFit.fill,
           ),
-        ),
-      ).defaultBorderRadius,
+        ).defaultBorderRadius,
+      ),
       title: Text(country.officialName),
       subtitle: Text(country.capital),
     );

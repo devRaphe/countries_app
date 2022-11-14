@@ -42,26 +42,77 @@ class CountriesDetailView extends HookWidget {
                     fontSize: 20.sp,
                   ),
             ),
-            body: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                _MiniPageView(
-                  countryToView: countryToView,
-                  pageController: pageController,
-                ).defaultBorderRadius,
-                CountriesSpacing.mediumHeight(),
-                _CountriesInfoSection1(countryToView: countryToView),
-                CountriesSpacing.largeHeight(),
-                _CountriesInfoSection2(countryToView: countryToView),
-                CountriesSpacing.largeHeight(),
-                _CountriesInfoSection3(countryToView: countryToView),
-                CountriesSpacing.largeHeight(),
-                _CountriesInfoSection4(countryToView: countryToView),
-              ],
-            ).withPadding(),
+            body: OrientationBuilder(
+              builder: (context, orientation) => ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  _MiniPageView(
+                    height: orientation == Orientation.portrait ? 300 : 500,
+                    countryToView: countryToView,
+                    pageController: pageController,
+                  ).defaultBorderRadius,
+                  CountriesSpacing.largeHeight(),
+                  if (orientation == Orientation.portrait)
+                    _PortraitDetailsView(countryToView: countryToView)
+                  else
+                    _LandscapeDetailsView(countryToView: countryToView),
+                ],
+              ).withPadding(),
+            ),
           ),
         );
       },
+    );
+  }
+}
+
+class _LandscapeDetailsView extends StatelessWidget {
+  const _LandscapeDetailsView({
+    required this.countryToView,
+  });
+
+  final Country countryToView;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 2,
+      ),
+      children: [
+        _CountriesInfoSection1(countryToView: countryToView),
+        _CountriesInfoSection2(countryToView: countryToView),
+        _CountriesInfoSection3(countryToView: countryToView),
+        _CountriesInfoSection4(countryToView: countryToView),
+      ],
+    );
+  }
+}
+
+class _PortraitDetailsView extends StatelessWidget {
+  const _PortraitDetailsView({
+    required this.countryToView,
+  });
+
+  final Country countryToView;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CountriesSpacing.mediumHeight(),
+        _CountriesInfoSection1(countryToView: countryToView),
+        CountriesSpacing.largeHeight(),
+        _CountriesInfoSection2(countryToView: countryToView),
+        CountriesSpacing.largeHeight(),
+        _CountriesInfoSection3(countryToView: countryToView),
+        CountriesSpacing.largeHeight(),
+        _CountriesInfoSection4(countryToView: countryToView),
+      ],
     );
   }
 }
@@ -70,7 +121,10 @@ class _MiniPageView extends StatelessWidget {
   const _MiniPageView({
     required this.countryToView,
     required this.pageController,
+    required this.height,
   });
+
+  final double height;
 
   final Country countryToView;
 
