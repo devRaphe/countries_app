@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/extensions/widget_extension.dart';
@@ -35,50 +36,55 @@ class CountriesView extends HookWidget {
             appBar: const _CountriesAppbar(),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                children: [
-                  CountriesSpacing.mediumHeight(),
-                  _SearchTextField(
-                    searchTextEditingController: searchTextEditingController,
-                    focusNode: textFocusNode,
-                  ),
-                  CountriesSpacing.mediumHeight(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _FilterBox(
-                        label: 'EN',
-                        icon: CupertinoIcons.globe,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 14.h,
+              child: model.isBusy
+                  ? const _LoadingWidget()
+                  : Column(
+                      children: [
+                        CountriesSpacing.mediumHeight(),
+                        _SearchTextField(
+                          searchTextEditingController:
+                              searchTextEditingController,
+                          focusNode: textFocusNode,
                         ),
-                      ).defaultBorderRadius.touchable(() {}),
-                      _FilterBox(
-                        label: 'Filter',
-                        icon: Icons.filter_alt_outlined,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 14.h,
+                        CountriesSpacing.mediumHeight(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _FilterBox(
+                              label: 'EN',
+                              icon: CupertinoIcons.globe,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 14.h,
+                              ),
+                            ).defaultBorderRadius.touchable(() {}),
+                            _FilterBox(
+                              label: 'Filter',
+                              icon: Icons.filter_alt_outlined,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 14.h,
+                              ),
+                            )
+                                .defaultBorderRadius
+                                .touchable(model.filterCountries),
+                          ],
                         ),
-                      ).defaultBorderRadius.touchable(model.filterCountries),
-                    ],
-                  ),
-                  CountriesSpacing.mediumHeight(),
-                  Flexible(
-                    child: OrientationBuilder(
-                      builder: (context, orientation) =>
-                          orientation == Orientation.portrait
-                              ? _CountriesBuilderPortrait(
-                                  key: UniqueKey(),
-                                )
-                              : _CountriesBuilderLandScape(
-                                  key: UniqueKey(),
-                                ),
+                        CountriesSpacing.mediumHeight(),
+                        Flexible(
+                          child: OrientationBuilder(
+                            builder: (context, orientation) =>
+                                orientation == Orientation.portrait
+                                    ? _CountriesBuilderPortrait(
+                                        key: UniqueKey(),
+                                      )
+                                    : _CountriesBuilderLandScape(
+                                        key: UniqueKey(),
+                                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
             ),
           ),
         );
@@ -87,11 +93,67 @@ class CountriesView extends HookWidget {
   }
 }
 
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Theme.of(context).colorScheme.secondary,
+      highlightColor: Theme.of(context).colorScheme.surface,
+      child: ListView.builder(
+        itemBuilder: (context, index) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CountriesSpacing.mediumHeight(),
+            Row(
+              children: [
+                const _ShimmerWidget(width: 50, height: 50),
+                CountriesSpacing.smallWidth(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _ShimmerWidget(width: 200.w, height: 8),
+                    CountriesSpacing.smallHeight(),
+                    _ShimmerWidget(width: 100.w, height: 8),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        itemCount: 20,
+      ),
+    );
+  }
+}
+
+class _ShimmerWidget extends StatelessWidget {
+  const _ShimmerWidget({
+    required this.width,
+    required this.height,
+  });
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4.r),
+      ),
+      child: SizedBox(
+        height: height,
+        width: width,
+      ),
+    );
+  }
+}
+
 class _CountriesAppbar extends ViewModelWidget<CountriesViewModel>
     implements PreferredSizeWidget {
-  const _CountriesAppbar({
-    Key? key,
-  }) : super(key: key);
+  const _CountriesAppbar();
 
   @override
   Widget build(BuildContext context, CountriesViewModel model) {
