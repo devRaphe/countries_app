@@ -103,53 +103,66 @@ class _MiniPageView extends StatelessWidget {
                 count: 2,
                 effect: ExpandingDotsEffect(
                   activeDotColor: Theme.of(context).colorScheme.surface,
-                  dotColor: Theme.of(context).colorScheme.secondary,
+                  dotColor: Theme.of(context).colorScheme.secondaryContainer,
                 ),
               ),
             ).withPadding(
               EdgeInsets.only(bottom: 10.w),
             ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    child: const Icon(Icons.arrow_back_ios)
-                        .withPadding(EdgeInsets.all(8.w)),
-                  ).touchable(
-                    () {
-                      pageController.previousPage(
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeIn,
-                      );
-                    },
-                  ),
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    child: const Icon(Icons.arrow_forward_ios)
-                        .withPadding(EdgeInsets.all(8.w)),
-                  ).touchable(
-                    () {
-                      pageController.nextPage(
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeIn,
-                      );
-                    },
-                  ),
-                ],
-              ).withPadding(
-                EdgeInsets.symmetric(horizontal: 10.w),
-              ),
-            )
+            _ArrowButtons(pageController: pageController)
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ArrowButtons extends StatelessWidget {
+  const _ArrowButtons({
+    required this.pageController,
+  });
+
+  final PageController pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
+            child: const Icon(Icons.arrow_back_ios)
+                .withPadding(EdgeInsets.all(8.w)),
+          ).touchable(
+            () {
+              pageController.previousPage(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeIn,
+              );
+            },
+          ),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
+            child: const Icon(Icons.arrow_forward_ios)
+                .withPadding(EdgeInsets.all(8.w)),
+          ).touchable(
+            () {
+              pageController.nextPage(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeIn,
+              );
+            },
+          ),
+        ],
+      ).withPadding(
+        EdgeInsets.symmetric(horizontal: 10.w),
       ),
     );
   }
