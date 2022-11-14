@@ -48,18 +48,20 @@ class CountriesView extends HookWidget {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
                     ),
                     child: Theme.of(context).brightness == Brightness.dark
                         ? IconButton(
                             onPressed: model.turnOnLightMode,
                             icon: Icon(
                               Icons.dark_mode_sharp,
+                              color: Theme.of(context).colorScheme.surface,
                               size: 30.w,
                             ),
                           )
                         : IconButton(
                             onPressed: model.turnOnDarkMode,
+                            color: Theme.of(context).colorScheme.surface,
                             icon: Icon(Icons.light_mode, size: 30.w),
                           ),
                   ),
@@ -72,7 +74,6 @@ class CountriesView extends HookWidget {
                 children: [
                   CountriesSpacing.mediumHeight(),
                   _SearchTextField(
-                    key: UniqueKey(),
                     searchTextEditingController: searchTextEditingController,
                     focusNode: textFocusNode,
                   ),
@@ -95,7 +96,7 @@ class CountriesView extends HookWidget {
                           horizontal: 12.w,
                           vertical: 14.h,
                         ),
-                      ).defaultBorderRadius.touchable(() {}),
+                      ).defaultBorderRadius.touchable(model.filterCountries),
                     ],
                   ),
                   CountriesSpacing.mediumHeight(),
@@ -120,6 +121,7 @@ class _CountriesBuilder extends ViewModelWidget<CountriesViewModel> {
   @override
   Widget build(BuildContext context, CountriesViewModel model) {
     return ListView.builder(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       itemCount: model.countries.length,
@@ -200,9 +202,8 @@ class _FilterBox extends StatelessWidget {
 }
 
 /// Textinput widget.
-class _SearchTextField extends StatelessWidget {
+class _SearchTextField extends ViewModelWidget<CountriesViewModel> {
   const _SearchTextField({
-    super.key,
     required this.searchTextEditingController,
     required this.focusNode,
   });
@@ -211,11 +212,20 @@ class _SearchTextField extends StatelessWidget {
   final FocusNode focusNode;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, CountriesViewModel model) {
     return TextField(
+      focusNode: focusNode,
       controller: searchTextEditingController,
+      onChanged: (query) {
+        model.searchCountries(query);
+      },
+      onEditingComplete: focusNode.unfocus,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        hintText: 'Search',
+        prefixIconColor: Theme.of(context).colorScheme.surface,
+        focusColor: Theme.of(context).colorScheme.surface,
+        hintText: 'Search. eg.name,capital,region',
         prefixIcon: const Icon(Icons.search),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 16.w,
