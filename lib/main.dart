@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import 'app/app.bottomsheets.dart';
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
 import 'core/theme/countries_theme_manager.dart';
@@ -10,6 +11,7 @@ import 'services/theme_service/theme_service.dart';
 
 void main() async {
   await setupLocator();
+  setupBottomsheetUi();
   runApp(const CountriesApp());
 }
 
