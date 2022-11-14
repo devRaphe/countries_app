@@ -31,6 +31,7 @@ class CountriesView extends HookWidget {
       ) {
         return Statusbar(
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text(
                 'Explore.',
@@ -146,7 +147,7 @@ class _CountriesBuilderLandScape extends ViewModelWidget<CountriesViewModel> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 10,
-        mainAxisExtent: 50,
+        mainAxisExtent: 65,
       ),
       itemBuilder: (context, index) {
         final country = model.countries[index];
