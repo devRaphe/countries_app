@@ -14,6 +14,7 @@ class CountriesThemeManager {
   static ThemeData lightTheme = _themeData(_lightColorScheme);
 
   static ThemeData _themeData(ColorScheme colorScheme) => ThemeData(
+        brightness: colorScheme.brightness,
         scaffoldBackgroundColor: colorScheme.background,
         colorScheme: colorScheme,
         textTheme: GoogleFonts.montserratTextTheme(_textTheme(colorScheme)),
@@ -21,10 +22,10 @@ class CountriesThemeManager {
       );
 
   static final ColorScheme _darkColorScheme = const ColorScheme.dark().copyWith(
-    primary: Colors.black,
+    primary: Colors.white,
     primaryContainer: const Color(0XFFff6c00),
     secondary: const Color(0xFF98a2b3),
-    secondaryContainer: const Color(0xfff2f4f7),
+    secondaryContainer: const Color(0xff1e2c41),
     background: const Color(0XFF000f24),
     surfaceTint: const Color(0xFF001637),
     surface: Colors.white,
@@ -32,10 +33,10 @@ class CountriesThemeManager {
 
   static final ColorScheme _lightColorScheme =
       const ColorScheme.light().copyWith(
-    primary: Colors.white,
+    primary: Colors.black,
     primaryContainer: const Color(0XFFff6c00),
     secondary: const Color(0xff98a2b3),
-    secondaryContainer: const Color(0xff98a2b3),
+    secondaryContainer: const Color(0xfff2f4f7),
     background: Colors.white,
     surfaceTint: const Color(0xFF001637),
     surface: Colors.black,
