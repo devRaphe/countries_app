@@ -45,3 +45,4 @@ app.*.map.json
 lib/app/app.locator.dart
 lib/app/app.logger.dart
 lib/app/app.router.dart
+lib/app/app.bottomsheets.dart

@@ -8,6 +8,7 @@ import '../services/network_service/i_network_service.dart';
 import '../services/theme_service/theme_service.dart';
 import '../ui/countries/countries_view.dart';
 import '../ui/countries_detail/countries_detail_view.dart';
+import '../ui/filter_countries_bottom_sheet/filter_countries_bottom_sheet_view.dart';
 
 @StackedApp(
   routes: [
@@ -26,6 +27,9 @@ import '../ui/countries_detail/countries_detail_view.dart';
       asType: ICountriesService,
     ),
     LazySingleton<ThemeService>(classType: ThemeService),
+  ],
+  bottomsheets: [
+    StackedBottomsheet(classType: FilterCountriesBottomSheetView),
   ],
   logger: StackedLogger(),
 )
