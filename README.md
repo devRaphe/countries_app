@@ -34,40 +34,40 @@ This project is a starting point for a Flutter application.
 
 #### External Libraries used
   
-  # helps cache images from the network to avoid uncessary network calls
+  ###### helps cache images from the network to avoid uncessary network calls
   cached_network_image: ^3.2.2
 
-  # Used to make network calls
+  ###### Used to make network calls
   dio: ^4.0.6
 
-  # Implements google fonts api to provide custom fonts
+  ###### Implements google fonts api to provide custom fonts
   google_fonts: ^3.0.1
 
-  # An efficient way to for object equality
+  ###### An efficient way to for object equality
   equatable: ^2.0.5
 
 
-   # This library provides custom hook to improve code reusability
+   ###### This library provides custom hook to improve code reusability
   flutter_hooks: ^0.18.5+1
 
-  # Consistent and pixel perfect helper
+  ###### Consistent and pixel perfect helper
   flutter_screenutil: ^5.6.0
 
-  # Provides fluent page view indicators
+  ###### Provides fluent page view indicators
   smooth_page_indicator: ^1.0.0+2
 
-  # used to display a shimmer effect when UI loading
+  ###### used to display a shimmer effect when UI loading
   shimmer: ^2.0.0
 
-  # Provider state management library extension with classes to boost mvvm architecture
+  ###### Provider state management library extension with classes to boost mvvm architecture
   stacked: ^3.0.0
   stacked_hooks: ^0.2.2
   stacked_services: ^0.9.8
 
-  # Logging info to the console
+  ###### Logging info to the console
   logger: ^1.1.0
 
-  # package used to incorperate webview in flutter
+  ###### package used to incorperate webview in flutter
   webview_flutter: ^3.0.0
 
 ## Code Style
