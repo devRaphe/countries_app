@@ -32,53 +32,7 @@ class CountriesView extends HookWidget {
         return Statusbar(
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              title: Text(
-                'Explore.',
-                style: GoogleFonts.elsieSwashCaps(
-                  fontSize: 32.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.surface,
-                  height: 1.5,
-                ),
-              ),
-              titleSpacing: 0,
-              leading: SizedBox(
-                width: 24.w,
-              ),
-              leadingWidth: 24.w,
-              centerTitle: false,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Container(
-                    height: 40.h,
-                    width: 40.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                    ),
-                    child: Theme.of(context).brightness == Brightness.dark
-                        ? Icon(
-                            Icons.dark_mode_sharp,
-                            color: Theme.of(context).colorScheme.surface,
-                            size: 30,
-                          ).touchable(() {
-                            model.turnOnLightMode();
-                          })
-                        : Icon(
-                            Icons.light_mode,
-                            size: 30,
-                            color: Theme.of(context).colorScheme.surface,
-                          ).touchable(
-                            () {
-                              model.turnOnDarkMode();
-                            },
-                          ),
-                  ),
-                ),
-              ],
-            ),
+            appBar: const _CountriesAppbar(),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Column(
@@ -131,6 +85,67 @@ class CountriesView extends HookWidget {
       },
     );
   }
+}
+
+class _CountriesAppbar extends ViewModelWidget<CountriesViewModel>
+    implements PreferredSizeWidget {
+  const _CountriesAppbar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, CountriesViewModel model) {
+    return AppBar(
+      title: Text(
+        'Explore.',
+        style: GoogleFonts.elsieSwashCaps(
+          fontSize: 32.sp,
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.surface,
+          height: 1.5,
+        ),
+      ),
+      titleSpacing: 0,
+      leading: SizedBox(
+        width: 24.w,
+      ),
+      leadingWidth: 24.w,
+      centerTitle: false,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Container(
+            height: 40.h,
+            width: 40.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
+            child: Theme.of(context).brightness == Brightness.dark
+                ? Icon(
+                    Icons.dark_mode_sharp,
+                    color: Theme.of(context).colorScheme.surface,
+                    size: 30,
+                  ).touchable(() {
+                    model.turnOnLightMode();
+                  })
+                : Icon(
+                    Icons.light_mode,
+                    size: 30,
+                    color: Theme.of(context).colorScheme.surface,
+                  ).touchable(
+                    () {
+                      model.turnOnDarkMode();
+                    },
+                  ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => AppBar().preferredSize;
 }
 
 class _CountriesBuilderLandScape extends ViewModelWidget<CountriesViewModel> {
