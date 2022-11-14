@@ -15,13 +15,60 @@ This project is a starting point for a Flutter application.
 
 ### Upcoming features
 - Localization of of each country
-- Have a [RiverPod](www.riverpod.dev) state management implementation
+- Have a [RiverPod](www.riverpod.dev) state management implementation.
 
-## Design 
+#### Design 
    The figma design that will be implemented for this project can be found [here](https://www.figma.com/proto/v9AXj4VZNnx26fTthrPbhX/Explore?node-id=33%3A1390&scaling=scale-down&page-id=0%3A1&starting-point-node-id=33%3A1390&show-proto-sidebar=1) 
 
-## Hosted App Link
-   [Here]() is the link to the app hosted on appetize.
+#### Hosted App Link
+   [Here](https://appetize.io/embed/amfx2ooztcwy5iusnlayzkhnei) is the link to the app hosted on appetize.
+
+#### Challenges Faced.
+   There were no challenges faced while building this project.
+
+#### Things that could be made better
+ - followed TDD pattern
+
+
+
+
+#### External Libraries used
+  
+  # helps cache images from the network to avoid uncessary network calls
+  cached_network_image: ^3.2.2
+
+  # Used to make network calls
+  dio: ^4.0.6
+
+  # Implements google fonts api to provide custom fonts
+  google_fonts: ^3.0.1
+
+  # An efficient way to for object equality
+  equatable: ^2.0.5
+
+
+   # This library provides custom hook to improve code reusability
+  flutter_hooks: ^0.18.5+1
+
+  # Consistent and pixel perfect helper
+  flutter_screenutil: ^5.6.0
+
+  # Provides fluent page view indicators
+  smooth_page_indicator: ^1.0.0+2
+
+  # used to display a shimmer effect when UI loading
+  shimmer: ^2.0.0
+
+  # Provider state management library extension with classes to boost mvvm architecture
+  stacked: ^3.0.0
+  stacked_hooks: ^0.2.2
+  stacked_services: ^0.9.8
+
+  # Logging info to the console
+  logger: ^1.1.0
+
+  # package used to incorperate webview in flutter
+  webview_flutter: ^3.0.0
 
 ## Code Style
   **i. Naming Convention:**
