@@ -19,6 +19,16 @@ class CountriesViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _log = getLogger('CountriesViewModel');
 
+  /// Function to turn on dart mode.
+  void turnOnDarkMode() {
+    _themeService.setThemeMode(isDarkMode: true);
+  }
+
+  /// Function to turn on dart mode.
+  void turnOnLightMode() {
+    _themeService.setThemeMode(isDarkMode: false);
+  }
+
   List<Country> _countries = [];
 
   /// Getter of a list of [_countries].

@@ -52,14 +52,14 @@ class CountriesView extends HookWidget {
                     ),
                     child: Theme.of(context).brightness == Brightness.dark
                         ? IconButton(
-                            onPressed: () {},
+                            onPressed: model.turnOnLightMode,
                             icon: Icon(
                               Icons.dark_mode_sharp,
                               size: 30.w,
                             ),
                           )
                         : IconButton(
-                            onPressed: () {},
+                            onPressed: model.turnOnDarkMode,
                             icon: Icon(Icons.light_mode, size: 30.w),
                           ),
                   ),
