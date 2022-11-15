@@ -145,6 +145,10 @@ class _MiniPageView extends StatelessWidget {
                   imageUrl: countryToView.flagImageUrl,
                   fit: BoxFit.fill,
                 ),
+                CachedNetworkImage(
+                  imageUrl: countryToView.coatOfArmsImageUrl,
+                  fit: BoxFit.fill,
+                ),
                 WebViewLoader(
                   url: countryToView.googleMapUrl,
                 ),
@@ -154,7 +158,7 @@ class _MiniPageView extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: SmoothPageIndicator(
                 controller: pageController,
-                count: 2,
+                count: 3,
                 effect: ExpandingDotsEffect(
                   activeDotColor: Theme.of(context).colorScheme.surface,
                   dotColor: Theme.of(context).colorScheme.secondaryContainer,

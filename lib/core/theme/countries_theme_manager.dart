@@ -84,5 +84,9 @@ class CountriesThemeManager {
   static AppBarTheme _appBarTheme(ColorScheme colorScheme) => AppBarTheme(
         backgroundColor: colorScheme.background,
         centerTitle: true,
+        iconTheme: _iconTheme(colorScheme),
+      );
+  static IconThemeData _iconTheme(ColorScheme colorScheme) => IconThemeData(
+        color: colorScheme.surface,
       );
 }
